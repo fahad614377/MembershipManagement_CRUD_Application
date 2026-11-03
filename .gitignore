@@ -1,0 +1,17 @@
+## Angular / Node.js
+**/node_modules/
+**/dist/
+**/.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## .NET Core / C# / Visual Studio
+**/bin/
+**/obj/
+**/.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+appsettings.Development.json
