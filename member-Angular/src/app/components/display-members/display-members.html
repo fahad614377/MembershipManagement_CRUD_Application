@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <h4>Member Information</h4>
+        <a class="btn btn-primary" routerLink="/add-member">Create new member</a>
+    </div>
+    @if(member && member.length>0){
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Member Information</th>
+                    <th>Category Information</th>
+                    <th>Borrow Information</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+               @for (item of member; track item.memberId) {
+                 <tr>
+                    <td>
+                        @if(item.imageUrl){
+                            <img [src]="getImageUrl(item.imageUrl)" class="img-thumbnail" height="80px" width="80px"/>
+                        }
+                        @else {
+                            <span>No Image Found</span>
+                        }<br/>
+                        <strong>Name: </strong>{{item.memberName}}<br/>                       
+                        <strong>Membersip Date: </strong>{{item.membershipDate  | date:'dd MMM yyyy'}}<br/>
+
+                    </td>
+                    <td>
+                        <strong>Category Name: </strong>{{item.category?.categoryName}}<br/>
+                        <strong>Membersip Fee: </strong>{{item.membershipFee}}<br/>
+                        <strong>Status: </strong>{{item.isStudent? 'Student':'Not a Student'}}
+                    </td>
+                    <td>
+                        @if(item.borrowedItems && item.borrowedItems.length>0 ){
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Book</th>
+                                        <th>Author</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (b of item.borrowedItems; track $index) {
+                                        <tr>
+                                            <td>{{b.bookName}}</td>
+                                            <td>{{b.authorName}}</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        @else {
+                            <span>No Borrow Item Found</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-success ms-2" [routerLink]="['/add-member',item.memberId]">Edit</a>
+                        <a class="btn btn-danger ms-1" (click)="deleteMember(item.memberId)">Delete</a>
+                    </td>
+                </tr>
+               }
+            </tbody>
+        </table>
+    }
+</div>
